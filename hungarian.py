@@ -97,8 +97,8 @@ y_pred = model.predict(X_test_normal)
 accuracy = accuracy_score(y_test_normal, y_pred)
 accuracy = round((accuracy * 100), 2)
 
-df_final = X
-df_final['target'] = y
+df_final = X_smote_resampled
+df_final['target'] = y_smote_resampled
 
 # ========================================================================================================================================================================================
 
