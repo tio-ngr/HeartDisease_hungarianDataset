@@ -122,8 +122,8 @@ with tab1:
   # st.sidebar.write(f":orange[Min] value: :orange[**{df_final['age'].min()}**], :red[Max] value: :red[**{df_final['age'].max()}**]")
   # st.sidebar.write("")
   age = st.sidebar.number_input(label=":violet[**Age**]", min_value=df_final['age'].min(), max_value=df_final['age'].max())
-  st.sidebar.text(f":orange[Min] value: :orange[**{df_final['age'].min()}**], :red[Max] value: :red[**{df_final['age'].max()}**]")
-  st.sidebar.text("")  # You can use st.sidebar.text("") instead of st.sidebar.write("")
+  st.sidebar.write(f":orange[Min] value: :orange[**{df_final['age'].min()}**], :red[Max] value: :red[**{df_final['age'].max()}**]")
+  st.sidebar.write("")  # You can use st.sidebar.text("") instead of st.sidebar.write("")
 
 
   sex_sb = st.sidebar.selectbox(label=":violet[**Sex**]", options=["Male", "Female"])
