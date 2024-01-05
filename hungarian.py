@@ -98,7 +98,8 @@ accuracy = accuracy_score(y_test, y_pred)
 accuracy = round((accuracy * 100), 2)
 
 df_final = X_smote_resampled
-df_final.loc[:, 'target'] = y_smote_resampled
+df_final = pd.DataFrame({'target': y_smote_resampled})
+
 
 #========================================================================================================================================================================================
 
