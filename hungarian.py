@@ -1,35 +1,29 @@
-import pandas as pd
-import re
-import numpy as np
 import itertools
+import pandas as pd
+import numpy as np
 from imblearn.over_sampling import SMOTE
 from sklearn.metrics import accuracy_score
-from sklearn.preprocessing import MinMaxScaler
-from sklearn.model_selection import train_test_split
-from sklearn.model_selection import RandomizedSearchCV
 import streamlit as st
 import time
 import pickle
 
-dir = "dataset/hungarian.data"
-
-with open(dir, encoding='Latin1') as file:
+with open("data/hungarian.data", encoding='Latin1') as file:
   lines = [line.strip() for line in file]
 
 data = itertools.takewhile(
-    lambda x: len(x) == 76,
-    (' '.join(lines[i:(i+10)]).split() for i in range(0, len(lines), 10))
+  lambda x: len(x) == 76,
+  (' '.join(lines[i:(i + 10)]).split() for i in range(0, len(lines), 10))
 )
 
 df = pd.DataFrame.from_records(data)
 
-df = df.iloc[:,:-1]
+df = df.iloc[:, :-1]
 df = df.drop(df.columns[0], axis=1)
 df = df.astype(float)
 
-df.replace(-9.0, np.nan, inplace=True)
+df.replace(-9.0, np.NaN, inplace=True)
 
-df_selected = df.iloc[:, [1,2,7,8,10,14,17,30,36,38,39,42,49,56]]
+df_selected = df.iloc[:, [1, 2, 7, 8, 10, 14, 17, 30, 36, 38, 39, 42, 49, 56]]
 
 column_mapping = {
   2: 'age',
@@ -50,7 +44,7 @@ column_mapping = {
 
 df_selected.rename(columns=column_mapping, inplace=True)
 
-columns_to_drop = ['ca','slope','thal']
+columns_to_drop = ['ca', 'slope','thal']
 df_selected = df_selected.drop(columns_to_drop, axis=1)
 
 meanTBPS = df_selected['trestbps'].dropna()
@@ -63,45 +57,45 @@ meanexang = df_selected['exang'].dropna()
 meanTBPS = meanTBPS.astype(float)
 meanChol = meanChol.astype(float)
 meanfbs = meanfbs.astype(float)
-meanRestCG = meanRestCG.astype(float)
 meanthalach = meanthalach.astype(float)
 meanexang = meanexang.astype(float)
+meanRestCG = meanRestCG.astype(float)
 
 meanTBPS = round(meanTBPS.mean())
 meanChol = round(meanChol.mean())
 meanfbs = round(meanfbs.mean())
-meanRestCG = round(meanRestCG.mean())
 meanthalach = round(meanthalach.mean())
 meanexang = round(meanexang.mean())
+meanRestCG = round(meanRestCG.mean())
 
-fill_values={'trestbps': meanTBPS, 'chol': meanChol, 'fbs': meanfbs,
-             'thalach': meanthalach, 'exang': meanexang, 'restecg': meanRestCG}
+fill_values = {
+  'trestbps': meanTBPS,
+  'chol': meanChol,
+  'fbs': meanfbs,
+  'thalach':meanthalach,
+  'exang':meanexang,
+  'restecg':meanRestCG
+}
 
-dfClean = df_selected.fillna(value=fill_values)
-dfClean = dfClean.drop_duplicates()
+df_clean = df_selected.fillna(value=fill_values)
+df_clean.drop_duplicates(inplace=True)
 
-X = dfClean.drop('target',axis=1).values
-y = dfClean.iloc[:,-1]
+X = df_clean.drop("target", axis=1)
+y = df_clean['target']
 
 smote = SMOTE(random_state=42)
-X_smote_resampled, y_smote_resampled = smote.fit_resample(X, y)
+X, y = smote.fit_resample(X, y)
 
-# scaler = MinMaxScaler()
-# X_smote_resampled_normal=scaler.fit_transform(X_smote_resampled)
+model = pickle.load(open("model/xgb_model.pkl", 'rb'))
 
-X_train, X_test, y_train, y_test = train_test_split(X_smote_resampled, y_smote_resampled, test_size=0.2, random_state=42, stratify=y_smote_resampled)
-
-model = pickle.load(open("model/rf_model_estimator.pkl", 'rb'))
-
-y_pred = model.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
+y_pred = model.predict(X)
+accuracy = accuracy_score(y, y_pred)
 accuracy = round((accuracy * 100), 2)
 
-df_final = X_smote_resampled
-df_final = pd.DataFrame({'target': y_smote_resampled})
+df_final = X
+df_final['target'] = y
 
-
-#========================================================================================================================================================================================
+# ========================================================================================================================================================================================
 
 # STREAMLIT
 st.set_page_config(
@@ -118,13 +112,9 @@ tab1, tab2 = st.tabs(["Single-predict", "Multi-predict"])
 with tab1:
   st.sidebar.header("**User Input** Sidebar")
 
-  # age = st.sidebar.number_input(label=":violet[**Age**]", min_value=df_final['age'].min(), max_value=df_final['age'].max())
-  # st.sidebar.write(f":orange[Min] value: :orange[**{df_final['age'].min()}**], :red[Max] value: :red[**{df_final['age'].max()}**]")
-  # st.sidebar.write("")
   age = st.sidebar.number_input(label=":violet[**Age**]", min_value=df_final['age'].min(), max_value=df_final['age'].max())
   st.sidebar.write(f":orange[Min] value: :orange[**{df_final['age'].min()}**], :red[Max] value: :red[**{df_final['age'].max()}**]")
-  st.sidebar.write("")  # You can use st.sidebar.text("") instead of st.sidebar.write("")
-
+  st.sidebar.write("")
 
   sex_sb = st.sidebar.selectbox(label=":violet[**Sex**]", options=["Male", "Female"])
   st.sidebar.write("")
