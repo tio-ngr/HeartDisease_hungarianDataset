@@ -6,6 +6,7 @@ from sklearn.metrics import accuracy_score
 import streamlit as st
 import time
 import pickle
+import joblib
 
 with open("dataset/hungarian.data", encoding='Latin1') as file:
   lines = [line.strip() for line in file]
@@ -86,7 +87,8 @@ y = df_clean['target']
 smote = SMOTE(random_state=42)
 X, y = smote.fit_resample(X, y)
 
-model = pickle.load(open("model/rf_model.pkl", 'rb'))
+# model = pickle.load(open("model/rf_model.pkl", 'rb'))
+model = joblib.load(open("model/rf_model.joblib", "rb"))
 
 y_pred = model.predict(X)
 accuracy = accuracy_score(y, y_pred)
