@@ -86,14 +86,16 @@ y = dfClean.iloc[:,-1]
 smote = SMOTE(random_state=42)
 X_smote_resampled, y_smote_resampled = smote.fit_resample(X, y)
 
-scaler = MinMaxScaler()
-X_smote_resampled_normal=scaler.fit_transform(X_smote_resampled)
+# scaler = MinMaxScaler()
+# X_smote_resampled_normal=scaler.fit_transform(X_smote_resampled)
 
-model = pickle.load(open("model/rf_model_on.pkl", 'rb'))
+X_train, X_test, y_train, y_test = train_test_split(X_smote_resampled, y_smote_resampled, test_size=0.2, random_state=42, stratify=y_smote_resampled)
+
+model = pickle.load(open("model/rf_model.pkl", 'rb'))
 # model = joblib.load(open("model/rf_model.joblib", "rb"))
 
-y_pred = model.predict(X_smote_resampled)
-accuracy = accuracy_score(y_smote_resampled, y_pred)
+y_pred = model.predict(X_test)
+accuracy = accuracy_score(y_test, y_pred)
 accuracy = round((accuracy * 100), 2)
 
 df_final = X_smote_resampled
