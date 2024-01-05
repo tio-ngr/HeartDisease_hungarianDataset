@@ -93,7 +93,7 @@ X_train, X_test, y_train, y_test = train_test_split(X_smote_resampled, y_smote_r
 
 model = pickle.load(open("model/rf_model.pkl", 'rb'))
 # model = joblib.load(open("model/rf_model.joblib", "rb"))
-
+n_estimators=100, random_state=42
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 accuracy = round((accuracy * 100), 2)
