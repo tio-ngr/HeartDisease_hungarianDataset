@@ -91,16 +91,16 @@ X_smote_resampled, y_smote_resampled = smote.fit_resample(X, y)
 
 X_train, X_test, y_train, y_test = train_test_split(X_smote_resampled, y_smote_resampled, test_size=0.2, random_state=42, stratify=y_smote_resampled)
 
-model = pickle.load(open("model/rf_model.pkl", 'rb'))
+model = pickle.load(open("model/rf_model_estimator.pkl", 'rb'))
 
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 accuracy = round((accuracy * 100), 2)
 
-df_final = X
-df_final['target'] = y
+df_final = X_smote_resampled
+df_final.loc[:, 'target'] = y_smote_resampled
 
-# ========================================================================================================================================================================================
+#========================================================================================================================================================================================
 
 # STREAMLIT
 st.set_page_config(
