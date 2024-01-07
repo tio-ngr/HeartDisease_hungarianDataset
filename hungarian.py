@@ -197,33 +197,32 @@ with tab1:
       inputs = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak]]
       prediction = model.predict(inputs)[0]
 
-      bar = st.progress(0)
-      status_text = st.empty()
+      col1, col2 = st.columns([1, 1])  # Create a two-column layout
 
-      for i in range(1, 101):
-          status_text.text(f"{i}% complete")
-          bar.progress(i)
-          time.sleep(0.01)
-          if i == 100:
-              time.sleep(1)
-              status_text.empty()
-              bar.empty()
+      with col1:
+          st.header("User Input as DataFrame")
+          st.write("")
+          st.dataframe(preview_df.iloc[:, :6])
+          st.write("")
+          st.dataframe(preview_df.iloc[:, 6:])
 
-      if prediction == 0:
-          result = ":green[**Healthy**]"
-      elif prediction == 1:
-          result = ":orange[**Heart disease level 1**]"
-      elif prediction == 2:
-          result = ":orange[**Heart disease level 2**]"
-      elif prediction == 3:
-          result = ":red[**Heart disease level 3**]"
-      elif prediction == 4:
-          result = ":red[**Heart disease level 4**]"
-
-  st.write("")
-  st.write("")
-  st.subheader("Prediction:")
-  st.subheader(result)
+      with col2:
+          st.header("Prediction:")
+          if prediction == 0:
+              result = ":green[**Healthy**]"
+          elif prediction == 1:
+              result = ":orange[**Heart disease level 1**]"
+          elif prediction == 2:
+              result = ":orange[**Heart disease level 2**]"
+          elif prediction == 3:
+              result = ":red[**Heart disease level 3**]"
+          elif prediction == 4:
+              result = ":red[**Heart disease level 4**]"
+          st.subheader(result)
+  # st.write("")
+  # st.write("")
+  # st.subheader("Prediction:")
+  # st.subheader(result)
 
 with tab2:
   st.header("Predict multiple data:")
