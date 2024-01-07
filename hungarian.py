@@ -101,7 +101,6 @@ df_final['target'] = y
 st.set_page_config(
   page_title = "Hungarian Heart Disease",
   page_icon = ":heart:",
-  background_color="#FFFFFF"
 )
 
 st.title("Hungarian Heart Disease")
