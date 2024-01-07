@@ -109,130 +109,124 @@ st.write("")
 tab1, tab2 = st.tabs(["Single-predict", "Multi-predict"])
 
 with tab1:
-  col1, col2 = st.columns([2, 1])  # Create a two-column layout with a ratio of 2:1
-  
-  with col1:
-    st.sidebar.header("**User Input** Sidebar")
+  st.header("**User Input**")
 
-    age = st.number_input(label=":violet[**Age**]", min_value=df_final['age'].min(), max_value=df_final['age'].max())
-    st.write(f":orange[Min] value: :orange[**{df_final['age'].min()}**], :red[Max] value: :red[**{df_final['age'].max()}**]")
+  age = st.number_input(label=":violet[**Age**]", min_value=df_final['age'].min(), max_value=df_final['age'].max())
+  st.write(f":orange[Min] value: :orange[**{df_final['age'].min()}**], :red[Max] value: :red[**{df_final['age'].max()}**]")
 
-    sex_sb = st.selectbox(label=":violet[**Sex**]", options=["Male", "Female"])
-    if sex_sb == "Male":
-        sex = 1
-    elif sex_sb == "Female":
-        sex = 0
+  sex_sb = st.selectbox(label=":violet[**Sex**]", options=["Male", "Female"])
+  if sex_sb == "Male":
+      sex = 1
+  elif sex_sb == "Female":
+      sex = 0
 
-    cp_sb = st.selectbox(label=":violet[**Chest pain type**]", options=["Typical angina", "Atypical angina", "Non-anginal pain", "Asymptomatic"])
-    if cp_sb == "Typical angina":
-        cp = 1
-    elif cp_sb == "Atypical angina":
-        cp = 2
-    elif cp_sb == "Non-anginal pain":
-        cp = 3
-    elif cp_sb == "Asymptomatic":
-        cp = 4
+  cp_sb = st.selectbox(label=":violet[**Chest pain type**]", options=["Typical angina", "Atypical angina", "Non-anginal pain", "Asymptomatic"])
+  if cp_sb == "Typical angina":
+      cp = 1
+  elif cp_sb == "Atypical angina":
+      cp = 2
+  elif cp_sb == "Non-anginal pain":
+      cp = 3
+  elif cp_sb == "Asymptomatic":
+      cp = 4
 
-    trestbps = st.number_input(label=":violet[**Resting blood pressure** (in mm Hg on admission to the hospital)]", min_value=df_final['trestbps'].min(), max_value=df_final['trestbps'].max())
-    st.write(f":orange[Min] value: :orange[**{df_final['trestbps'].min()}**], :red[Max] value: :red[**{df_final['trestbps'].max()}**]")
+  trestbps = st.number_input(label=":violet[**Resting blood pressure** (in mm Hg on admission to the hospital)]", min_value=df_final['trestbps'].min(), max_value=df_final['trestbps'].max())
+  st.write(f":orange[Min] value: :orange[**{df_final['trestbps'].min()}**], :red[Max] value: :red[**{df_final['trestbps'].max()}**]")
 
-    chol = st.number_input(label=":violet[**Serum cholestoral** (in mg/dl)]", min_value=df_final['chol'].min(), max_value=df_final['chol'].max())
-    st.write(f":orange[Min] value: :orange[**{df_final['chol'].min()}**], :red[Max] value: :red[**{df_final['chol'].max()}**]")
+  chol = st.number_input(label=":violet[**Serum cholestoral** (in mg/dl)]", min_value=df_final['chol'].min(), max_value=df_final['chol'].max())
+  st.write(f":orange[Min] value: :orange[**{df_final['chol'].min()}**], :red[Max] value: :red[**{df_final['chol'].max()}**]")
 
-    fbs_sb = st.selectbox(label=":violet[**Fasting blood sugar > 120 mg/dl?**]", options=["False", "True"])
-    if fbs_sb == "False":
-        fbs = 0
-    elif fbs_sb == "True":
-        fbs = 1
+  fbs_sb = st.selectbox(label=":violet[**Fasting blood sugar > 120 mg/dl?**]", options=["False", "True"])
+  if fbs_sb == "False":
+      fbs = 0
+  elif fbs_sb == "True":
+      fbs = 1
 
-    restecg_sb = st.selectbox(label=":violet[**Resting electrocardiographic results**]", options=["Normal", "Having ST-T wave abnormality", "Showing left ventricular hypertrophy"])
-    if restecg_sb == "Normal":
-        restecg = 0
-    elif restecg_sb == "Having ST-T wave abnormality":
-        restecg = 1
-    elif restecg_sb == "Showing left ventricular hypertrophy":
-        restecg = 2
+  restecg_sb = st.selectbox(label=":violet[**Resting electrocardiographic results**]", options=["Normal", "Having ST-T wave abnormality", "Showing left ventricular hypertrophy"])
+  if restecg_sb == "Normal":
+      restecg = 0
+  elif restecg_sb == "Having ST-T wave abnormality":
+      restecg = 1
+  elif restecg_sb == "Showing left ventricular hypertrophy":
+      restecg = 2
 
-    thalach = st.number_input(label=":violet[**Maximum heart rate achieved**]", min_value=df_final['thalach'].min(), max_value=df_final['thalach'].max())
-    st.write(f":orange[Min] value: :orange[**{df_final['thalach'].min()}**], :red[Max] value: :red[**{df_final['thalach'].max()}**]")
+  thalach = st.number_input(label=":violet[**Maximum heart rate achieved**]", min_value=df_final['thalach'].min(), max_value=df_final['thalach'].max())
+  st.write(f":orange[Min] value: :orange[**{df_final['thalach'].min()}**], :red[Max] value: :red[**{df_final['thalach'].max()}**]")
 
-    exang_sb = st.selectbox(label=":violet[**Exercise induced angina?**]", options=["No", "Yes"])
-    if exang_sb == "No":
-        exang = 0
-    elif exang_sb == "Yes":
-        exang = 1
+  exang_sb = st.selectbox(label=":violet[**Exercise induced angina?**]", options=["No", "Yes"])
+  if exang_sb == "No":
+      exang = 0
+  elif exang_sb == "Yes":
+      exang = 1
 
-    oldpeak = st.number_input(label=":violet[**ST depression induced by exercise relative to rest**]", min_value=df_final['oldpeak'].min(), max_value=df_final['oldpeak'].max())
-    st.write(f":orange[Min] value: :orange[**{df_final['oldpeak'].min()}**], :red[Max] value: :red[**{df_final['oldpeak'].max()}**]")
+  oldpeak = st.number_input(label=":violet[**ST depression induced by exercise relative to rest**]", min_value=df_final['oldpeak'].min(), max_value=df_final['oldpeak'].max())
+  st.write(f":orange[Min] value: :orange[**{df_final['oldpeak'].min()}**], :red[Max] value: :red[**{df_final['oldpeak'].max()}**]")
 
-    data = {
-        'Age': age,
-        'Sex': sex_sb,
-        'Chest pain type': cp_sb,
-        'RPB': f"{trestbps} mm Hg",
-        'Serum Cholestoral': f"{chol} mg/dl",
-        'FBS > 120 mg/dl?': fbs_sb,
-        'Resting ECG': restecg_sb,
-        'Maximum heart rate': thalach,
-        'Exercise induced angina?': exang_sb,
-        'ST depression': oldpeak,
-    }
+  data = {
+      'Age': age,
+      'Sex': sex_sb,
+      'Chest pain type': cp_sb,
+      'RPB': f"{trestbps} mm Hg",
+      'Serum Cholestoral': f"{chol} mg/dl",
+      'FBS > 120 mg/dl?': fbs_sb,
+      'Resting ECG': restecg_sb,
+      'Maximum heart rate': thalach,
+      'Exercise induced angina?': exang_sb,
+      'ST depression': oldpeak,
+  }
 
-    preview_df = pd.DataFrame(data, index=['input'])
+  preview_df = pd.DataFrame(data, index=['input'])
 
-    st.header("User Input as DataFrame")
-    st.write("")
-    st.dataframe(preview_df.iloc[:, :6])
-    st.write("")
-    st.dataframe(preview_df.iloc[:, 6:])
-    st.write("")
+  st.header("User Input as DataFrame")
+  st.write("")
+  st.dataframe(preview_df.iloc[:, :6])
+  st.write("")
+  st.dataframe(preview_df.iloc[:, 6:])
+  st.write("")
 
-    result = ":violet[-]"
+  result = ":violet[-]"
 
-    predict_btn = st.button("**Predict**", type="primary")
+  predict_btn = st.button("**Predict**", type="primary")
 
-  with col2:
-    st.header("Prediction Result:")
-    st.subheader(result)
-    st.write("")
-    if predict_btn:
-        inputs = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak]]
-        prediction = model.predict(inputs)[0]
-        
-        bar = st.progress(0)
-        status_text = st.empty()
-        
-        for i in range(1, 101):
-          status_text.text(f"{i}% complete")
-          bar.progress(i)
-          time.sleep(0.01)
-          if i == 100:
-            time.sleep(1)
-            status_text.empty()
-            bar.empty()
-        
-        col1, col2 = st.columns([1, 1])  # Create a two-column layout
+  st.write("")
+  if predict_btn:
+      inputs = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak]]
+      prediction = model.predict(inputs)[0]
+      
+      bar = st.progress(0)
+      status_text = st.empty()
+      
+      for i in range(1, 101):
+        status_text.text(f"{i}% complete")
+        bar.progress(i)
+        time.sleep(0.01)
+        if i == 100:
+          time.sleep(1)
+          status_text.empty()
+          bar.empty()
+      
+      col1, col2 = st.columns([1, 1])  # Create a two-column layout
 
-        with col1:
-            st.header("User Input as DataFrame")
-            st.write("")
-            st.dataframe(preview_df.iloc[:, :6])
-            st.write("")
-            st.dataframe(preview_df.iloc[:, 6:])
+      with col1:
+          st.header("User Input as DataFrame")
+          st.write("")
+          st.dataframe(preview_df.iloc[:, :6])
+          st.write("")
+          st.dataframe(preview_df.iloc[:, 6:])
 
-        with col2:
-            st.header("Prediction:")
-            if prediction == 0:
-                result = ":green[**Healthy**]"
-            elif prediction == 1:
-                result = ":orange[**Heart disease level 1**]"
-            elif prediction == 2:
-                result = ":orange[**Heart disease level 2**]"
-            elif prediction == 3:
-                result = ":red[**Heart disease level 3**]"
-            elif prediction == 4:
-                result = ":red[**Heart disease level 4**]"
-            st.subheader(result)
+      with col2:
+          st.header("Prediction:")
+          if prediction == 0:
+              result = ":green[**Healthy**]"
+          elif prediction == 1:
+              result = ":orange[**Heart disease level 1**]"
+          elif prediction == 2:
+              result = ":orange[**Heart disease level 2**]"
+          elif prediction == 3:
+              result = ":red[**Heart disease level 3**]"
+          elif prediction == 4:
+              result = ":red[**Heart disease level 4**]"
+          st.subheader(result)
   # st.write("")
   # st.write("")
   # st.subheader("Prediction:")
