@@ -196,7 +196,10 @@ with tab1:
   if predict_btn:
       inputs = [[age, sex, cp, trestbps, chol, fbs, restecg, thalach, exang, oldpeak]]
       prediction = model.predict(inputs)[0]
-
+      
+      bar = st.progress(0)
+      status_text = st.empty()
+      
       col1, col2 = st.columns([1, 1])  # Create a two-column layout
 
       with col1:
