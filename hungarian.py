@@ -200,6 +200,15 @@ with tab1:
       bar = st.progress(0)
       status_text = st.empty()
       
+      for i in range(1, 101):
+        status_text.text(f"{i}% complete")
+        bar.progress(i)
+        time.sleep(0.01)
+        if i == 100:
+          time.sleep(1)
+          status_text.empty()
+          bar.empty()
+      
       col1, col2 = st.columns([1, 1])  # Create a two-column layout
 
       with col1:
